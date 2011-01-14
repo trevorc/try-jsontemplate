@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Try JSONTemplate.</title>
+    <script src="json-template.js"></script>
+    <style>
+      body { font-family: Palatino; margin: 1em; }
+      h1 { font-size: 140%; margin-bottom: 1em; }
+      h2 { margin-bottom: 4px; font-size: 100%; }
+      textarea { width: 30em; height: 10em; margin-bottom: 1em; }
+    </style>
+  </head>
+  <h1>Try JSONTemplate</h1>
+  <h2><label>Template</label></h2>
+  <textarea id="template"></textarea>
+  <h2><label>Context</label></h2>
+  <textarea id="context"></textarea>
+  <h2>Output</h2>
+  <pre id="output">...</pre>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var template = ''
+        , context = {}
+        , templateInput = document.getElementById('template')
+        , contextInput = document.getElementById('context')
+        , output = document.getElementById('output');
+
+      function render() {
+        try {
+          template = jsontemplate.Template(templateInput.value);
+          context = JSON.parse(contextInput.value);
+          output.innerHTML = template.expand(context);
+        } catch(err) {
+        }
+      }
+
+      templateInput.onkeyup = contextInput.onkeyup = render;
+    });
+  </script>
+</html>
